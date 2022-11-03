@@ -1,0 +1,34 @@
+<h1 class="mt-4">Password Wallet Dashboard</h1>
+<p class="lead mb-3">Welcome <%= login %>!</p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<a href="/users/change-password" class="btn btn-info">Change password</a>
+<a href="/passwords/add-password" class="btn btn-success">Add password</a>
+
+<h1 class="mt-5">Your passwords</h1>
+<%- include ("./partials/encryptedPasswordAlert") %>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Web address</th>
+        <th scope="col">Description</th>
+        <th scope="col">Login</th>
+        <th scope="col">Password</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% passwords.forEach(function(password) { %>
+        <tr class="table-light align-middle">
+          <th> <%= password.web_address %> </th>
+          <td> <%= password.description %> </td>
+          <td> <%= password.login %> </td>
+
+          <form action="/passwords/decrypt" method="POST">
+            <td> <input class="form-control" name="password" readonly value="<%= password.password %>"> </td>
+            <td> <button class="btn btn-danger" type="submit">DECRYPT</button> </td>
+          </form>
+        </tr>
+      <% }) %>
+    </tbody>
+</table>
+
